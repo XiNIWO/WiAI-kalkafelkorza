@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator kafelkarza</title>
+</head>
+<body>
+    <h1>Kalkulator kafelkarza</h1>
+
+    <div class="container">
+        <!-- Kolumna prostokąt -->
+        <div class="column">
+            <img src="rectangle.png" alt="Obrazek prostokąta">
+            <h3>Podaj długość boków pomieszczenia prostokątnego</h3>
+            <label for="length">Podaj długość boku a:</label>
+            <input type="number" id="length" placeholder="Podaj bok a w m"><br><br>
+            <label for="width">Podaj długość boku b:</label>
+            <input type="number" id="width" placeholder="Podaj bok b w m"><br><br>
+            <button onclick="calculateRectangleArea()">Oblicz pole</button>
+            <h4>Pole pomieszczenia: <span id="rectangleArea">0</span> m²</h4>
+        </div>
+
+        <!-- Kolumna trójkąt -->
+        <div class="column">
+            <img src="triangle.png" alt="Obrazek trójkąta">
+            <h3>Podaj długości boków pomieszczenia trójkątnego</h3>
+            <label for="sideA">Podaj długość boku a:</label>
+            <input type="number" id="sideA" placeholder="Podaj bok a w m"><br><br>
+            <label for="sideB">Podaj długość boku b:</label>
+            <input type="number" id="sideB" placeholder="Podaj bok b w m"><br><br>
+            <label for="sideC">Podaj długość boku c:</label>
+            <input type="number" id="sideC" placeholder="Podaj bok c w m"><br><br>
+            <button onclick="calculateTriangleArea()">Oblicz pole</button>
+            <h4>Pole powierzchni: <span id="triangleArea">0</span> m²</h4>
+        </div>
+    </div>
+    <script>
+        // Funkcja do obliczania pola prostokąta
+        function calculateRectangleArea() {
+            const length = parseFloat(document.getElementById("length").value); // Pobieramy wartość długości boku a
+            const width = parseFloat(document.getElementById("width").value); // Pobieramy wartość długości boku b
+            if (!isNaN(length) && !isNaN(width)) { // Sprawdzamy, czy dane są poprawne
+                const area = length * width; // Obliczamy pole prostokąta
+                document.getElementById("rectangleArea").innerText = area; // Wyświetlamy wynik
+            } else {
+                alert("Proszę podać poprawne długości boków."); // Komunikat o błędzie
+            }
+        }
+    
+        // Funkcja do obliczania pola trójkąta za pomocą wzoru Herona
+        function calculateTriangleArea() {
+            const a = parseFloat(document.getElementById("sideA").value); // Pobieramy długość boku a
+            const b = parseFloat(document.getElementById("sideB").value); // Pobieramy długość boku b
+            const c = parseFloat(document.getElementById("sideC").value); // Pobieramy długość boku c
+            // Sprawdzamy, czy długości boków są poprawne
+            if (!isNaN(a) && !isNaN(b) && !isNaN(c) && a + b > c && a + c > b && b + c > a) {
+                const s = (a + b + c) / 2; // Obliczamy połowę obwodu
+                const area = Math.sqrt(s * (s - a) * (s - b) * (s - c)); // Zastosowanie wzoru Herona
+                document.getElementById("triangleArea").innerText = area.toFixed(2); // Wyświetlamy wynik
+            } else {
+                alert("Proszę podać poprawne długości boków."); // Komunikat o błędzie
+            }
+        }
+    </script>
+</body>
+</html>
